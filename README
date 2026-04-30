@@ -1,7 +1,7 @@
 Maven Java Web Application: CI/CD Pipeline to Tomcat
 
 Overview
-Java web application built with Maven. Demonstrates an automated CI/CD pipeline from source control to deployment on Apache Tomcat.
+Java web application built with Maven. Originally created 4 years ago in 2022 and modernized in 2026. Demonstrates an automated CI/CD pipeline from source control to deployment on Apache Tomcat.
 
 Tech Stack
 Language: Java JDK 21 LTS
@@ -12,12 +12,20 @@ Deployment: Apache Tomcat 10.1
 Containerization: Docker
 Infrastructure: AWS EC2 or Amazon EKS
 
+Pipeline Evolution
+2022: Initial implementation using Maven 3.8.6, Tomcat 9 deploy plugin. Original repository: maven-web-application.git--jenks
+2026: Modernized to Maven 3.9.6, Tomcat 10.1 Manager API, Jakarta EE compatible. Repository: java-cicd-jenkins-sonar
+
 Pipeline Workflow
-1. Commit: Code pushed to GitHub triggers Jenkins via webhook
-2. Build: Maven runs unit tests and packages .war artifact with mvn clean package
-3. Analysis: SonarQube performs static application security testing and quality gate check
-4. Containerization: Docker multi-stage build packages .war with Tomcat 10.1
-5. Deployment: Container deployed to Tomcat on AWS
+Commit: Code pushed to GitHub triggers Jenkins via webhook
+Build: Maven runs unit tests and packages .war artifact with mvn clean package
+Analysis: SonarQube performs static application security testing and quality gate check
+Containerization: Docker multi-stage build packages .war with Tomcat 10.1
+Deployment: Container deployed to Tomcat on AWS
+
+Files
+Jenkinsfile: Current 2026 pipeline
+Jenkinsfile.2022: Original 2022 pipeline
 
 Getting Started
 
@@ -27,7 +35,7 @@ Maven 3.9.6
 Docker Desktop
 
 Build Locally
-git clone https://github.com/JimmyT96/java-cicd-jenkins-sonar.git
+git clone github.com
 cd java-cicd-jenkins-sonar
 mvn clean package
 
@@ -37,7 +45,7 @@ Run with Docker
 docker build -t maven-web-app:v2 .
 docker run -p 8080:8080 maven-web-app:v2
 
-Application deploys to Tomcat and is accessible at http://localhost:8080
+Application deploys to Tomcat and is accessible at localhost:8080
 
 Author
 Jimmy96 T. DevOps & Cloud Engineer | BTech in Accounting
