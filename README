@@ -1,51 +1,42 @@
-Maven Java Web Application: CI/CD Pipeline to Tomcat
+Maven Java Web Application: CI/CD Pipeline to Tomcat 10.1
 
 Overview
-Java web application built with Maven. Originally created 4 years ago in 2022 and modernized in 2026. Demonstrates an automated CI/CD pipeline from source control to deployment on Apache Tomcat.
+Java web application built with Maven. Originally created in 2022 and modernized in 2026. Automated CI/CD pipeline from GitHub to Apache Tomcat 10.1 on AWS EC2.
 
 Tech Stack
 Language: Java JDK 21 LTS
 Build Tool: Apache Maven 3.9.6
 CI/CD: Jenkins
 Code Quality: SonarQube 2026.1 LTA
-Deployment: Apache Tomcat 10.1
-Containerization: Docker
-Infrastructure: AWS EC2 or Amazon EKS
-
-Pipeline Evolution
-2022: Initial implementation using Maven 3.8.6, Tomcat 9 deploy plugin. Original repository: maven-web-application.git--jenks
-2026: Modernized to Maven 3.9.6, Tomcat 10.1 Manager API, Jakarta EE compatible. Repository: java-cicd-jenkins-sonar
+Application Server: Apache Tomcat 10.1
 
 Pipeline Workflow
-Commit: Code pushed to GitHub triggers Jenkins via webhook
-Build: Maven runs unit tests and packages .war artifact with mvn clean package
-Analysis: SonarQube performs static application security testing and quality gate check
-Containerization: Docker multi-stage build packages .war with Tomcat 10.1
-Deployment: Container deployed to Tomcat on AWS
-
-Files
-Jenkinsfile: Current 2026 pipeline
-Jenkinsfile.2022: Original 2022 pipeline
-
-Getting Started
+1. Commit: Code pushed to GitHub triggers Jenkins via webhook
+2. Build: mvn clean verify runs JUnit 5 tests and packages .war
+3. Analysis: SonarQube performs static analysis and quality gate check
+4. Deploy: WAR uploaded to Tomcat Manager API using curl
 
 Prerequisites
 JDK 21
 Maven 3.9.6
-Docker Desktop
+Tomcat 10.1 running on EC2
 
 Build Locally
-git clone github.com
+git clone https://github.com/JimmyT96/java-cicd-jenkins-sonar
 cd java-cicd-jenkins-sonar
-mvn clean package
+mvn clean verify
 
-Artifact is generated in /target directory.
+Artifact: target/maven-web-app.war
 
-Run with Docker
-docker build -t maven-web-app:v2 .
-docker run -p 8080:8080 maven-web-app:v2
+Deploy to Tomcat
+curl -u admin:password -T target/maven-web-app.war "http://18.182.36.207:8080/manager/text/deploy?path=/maven-web-app&update=true"
 
-Application deploys to Tomcat and is accessible at localhost:8080
+Access: http://18.182.36.207:8080/maven-web-app
+
+Key Notes
+Uses Jakarta EE http://jakarta.servlet for Tomcat 10.1 compatibility
+Deploys via Tomcat Manager API
+Context path: /maven-web-app
 
 Author
 Jimmy96 T. DevOps & Cloud Engineer | BTech in Accounting
