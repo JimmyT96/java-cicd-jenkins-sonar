@@ -1,56 +1,43 @@
-Maven Java Web App: Production CI/CD Pipeline 
+Maven Java Web Application: CI/CD Pipeline to Tomcat
 
-Project Overview
-This repository contains a high-performance Java web application managed with Maven. Originally established in 2023, it has been modernized for 2026 to serve as a blueprint for Automated DevOps. It demonstrates a "Zero-Touch" workflow from code commit to a containerized deployment on AWS EKS or EC2.
+Overview
+Java web application built with Maven. Demonstrates an automated CI/CD pipeline from source control to deployment on Apache Tomcat.
 
 Tech Stack
-Language: Java (Updated to JDK 21 LTS for performance and security).
-
+Language: Java JDK 21 LTS
 Build Tool: Apache Maven 3.9.6
+CI/CD: Jenkins
+Code Quality: SonarQube 2026.1 LTA
+Deployment: Apache Tomcat 10.1
+Containerization: Docker
+Infrastructure: AWS EC2 or Amazon EKS
 
-CI/CD: Jenkins 
-
-Analysis: SonarQube 2026.1 LTA 
-
-Artifacts: Dockerized .war deployment using Tomcat 10.1 (Jakarta EE compatible).
-
-Infrastructure: AWS EC2 (T3-Medium optimized) or Amazon EKS.
-
-CI/CD Workflow
-Commit: Developer pushes to GitHub; Jenkins triggers via webhooks.
-
-Verify: Maven executes unit tests and generates the artifact (mvn clean package).
-
-Analyze: SonarQube performs SAST (Static Application Security Testing) to catch 2026-critical vulnerabilities.
-
-Containerize: Docker builds a lean image using Multi-stage builds to minimize the attack surface.
-
-Deploy: The image is pushed to a private registry and deployed via a rolling update.
+Pipeline Workflow
+1. Commit: Code pushed to GitHub triggers Jenkins via webhook
+2. Build: Maven runs unit tests and packages .war artifact with mvn clean package
+3. Analysis: SonarQube performs static application security testing and quality gate check
+4. Containerization: Docker multi-stage build packages .war with Tomcat 10.1
+5. Deployment: Container deployed to Tomcat on AWS
 
 Getting Started
-1. Prerequisites
-JDK 21 
 
+Prerequisites
+JDK 21
 Maven 3.9.6
+Docker Desktop
 
-Docker Desktop (for local testing).
+Build Locally
+git clone https://github.com/JimmyT96/java-cicd-jenkins-sonar.git
+cd java-cicd-jenkins-sonar
+mvn clean package
 
-2. Local Build
-Bash
+Artifact is generated in /target directory.
 
-git clone https://github.com/JimmyT96/maven-web-application.git--jenks
-cd maven-web-application
-mvn clean package 
-The optimized .war file will be generated in the /target folder.
-
-3. Running with Docker
-Bash
-
-# Build the image using the hardened Dockerfile
-docker build -t maven-web-app:v2 . 
-
-# Run the container (Mapping Port 8080)
+Run with Docker
+docker build -t maven-web-app:v2 .
 docker run -p 8080:8080 maven-web-app:v2
 
+Application deploys to Tomcat and is accessible at http://localhost:8080
+
 Author
-Jimmy96 T. DevOps & Cloud Architect | BTech in Accounting
+Jimmy96 T. DevOps & Cloud Engineer | BTech in Accounting
